@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/navigation_consejo"
+            android:icon="@drawable/ic_baseline_remove_red_eye_24"
+            android:title="Советы по наблюдению ночного неба" />
+        <item
+            android:id="@+id/navigation_about"
+            android:icon="@drawable/ic_baseline_self_improvement_24"
+            android:title="О приложении" />
+    </group>
+</menu>

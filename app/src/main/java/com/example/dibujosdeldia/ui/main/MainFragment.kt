@@ -1,33 +1,202 @@
 package com.example.dibujosdeldia.ui.main
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import coil.api.load
+import com.example.dibujosdeldia.MainActivity
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.MainFragmentBinding
+import com.example.dibujosdeldia.ui.main.picture.BottomNavigationDrawerFragment
+import com.example.dibujosdeldia.ui.main.picture.PictureOfTheDayData
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.bottom_sheet_layout.*
+import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.chipGroup
+import kotlinx.android.synthetic.main.settings_fragment.*
+import java.util.*
 
 class MainFragment : Fragment() {
+    val viewModel : MainViewModel by viewModels()
+    private lateinit var binding: MainFragmentBinding
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private lateinit var viewModel: MainViewModel
+    private var myFoto = TODAY_FOTO
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getData().observe(viewLifecycleOwner, //сюда передать дату фото
+            Observer<PictureOfTheDayData> { renderData(it) })
+
+        //ищем по нажатию в википедии, сделаем три языка. Как бы это автоматизировать на все...
+        input_layout.setStartIconOnClickListener {
+            val myTextLength = input_edit_text?.text?.length
+            if (myTextLength != null && myTextLength > 20) { //не знаю, как узнать, переполнен ли счетчик, напишу условия сама
+                input_layout.isStartIconCheckable = false //И что?! Ничего не происходит ...может, сработало бы visability gone
+                    Toast.makeText(context, getString(R.string.text_is_too_long), Toast.LENGTH_SHORT).show()
+            } else {
+               startActivity(Intent(Intent.ACTION_VIEW).apply {
+                   var lang = Locale.getDefault().getLanguage() //получаем язык системы
+                   when {
+                       lang.equals("ru") -> {
+                           data = Uri.parse("https://ru.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                       }
+                       lang.equals("en") -> {
+                           data = Uri.parse("https://com.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                       }
+                       lang.equals("es") -> {
+                           data = Uri.parse("https://es.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                       }
+                       else -> {
+                           data = Uri.parse("https://com.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                       }
+                   }
+               })
+            }
+        }
+
+        setBottomSheetBehavior(bottom_sheet_container) //это когда мы научимся анимации
+//        bottomSheetBehavior.addBottomSheetCallback(object :
+//            BottomSheetBehavior.BottomSheetCallback() {
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                when (newState) {
+//                    BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_HALF_EXPANDED -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_HIDDEN -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_SETTLING -> TODO("not implemented")
+//                }
+//            }
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//                //TODO("not implemented")
+//            }
+//        })
+
+           setBottomAppBar(view)
+
+        chipGroup.setOnCheckedChangeListener { chipGroup, position ->
+            chipGroup.findViewById<Chip>(position)?.let {
+                Toast.makeText(context, "Выбран ${it.text}",
+                    Toast.LENGTH_SHORT).show()
+            }
+            when {
+                preyesterday_foto.isChecked -> {
+                    myFoto = PREYESTERDAY_PHOTO
+                }
+                yesterday_foto.isChecked -> {
+                    myFoto = YESTERDAY_FOTO
+                }
+                today_foto.isChecked -> {
+                    myFoto = TODAY_FOTO
+                }
+            }
+        }
+    }
+
+
+    private fun renderData(data: PictureOfTheDayData) = with(binding) {
+        when (data) {
+            is PictureOfTheDayData.Success -> {
+                val serverResponseData = data.serverResponseData
+                val url = serverResponseData.url
+                    //myFoto = serverResponseData.date.toString()
+                if (url.isNullOrEmpty()) {
+                    Toast.makeText(context, getString(R.string.link_is_empty), Toast.LENGTH_SHORT).show()
+                } else {
+                    //showSuccess()
+                    image_view.load(url) {
+                        lifecycle(this@MainFragment)
+                        error(R.drawable.ic_load_error_vector)
+                        placeholder(R.drawable.ic_no_photo_vector)
+                        waitForIt.visibility = View.GONE
+
+                        bottom_sheet_description_header.text = serverResponseData.title
+                        bottom_sheet_description.text = serverResponseData.explanation
+                        if(serverResponseData.title.equals("")) {
+                            bottom_sheet_description.text =  getString(R.string.no_description)
+                        }
+                    }
+                }
+            }
+            is PictureOfTheDayData.Loading -> {
+                waitForIt.visibility = View.VISIBLE
+            }
+            is PictureOfTheDayData.Error -> {
+                waitForIt.visibility = View.GONE
+                Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_DRAGGING
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.bottom_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_lovely -> Toast.makeText(context, getString(R.string.lovely),
+                Toast.LENGTH_SHORT).show()
+            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container,
+                SettingsFragment()
+            )?.addToBackStack(null)?.commit()
+            android.R.id.home -> {
+                activity?.let {
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(bottom_app_bar)
+        setHasOptionsMenu(true)
+        fab.setOnClickListener {
+            if (isMain) {
+                isMain = false
+                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_border_24))
+                bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
+            } else {
+                isMain = true
+                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                fab.setImageDrawable(ContextCompat.getDrawable(context,
+                    R.drawable.ic_baseline_star_24))
+                bottom_app_bar.replaceMenu(R.menu.bottom_bar_menu)
+            }
+        }
     }
 
     companion object {
         fun newInstance() = MainFragment()
+        private var isMain = true
+        private const val TODAY_FOTO = 0
+        private const val YESTERDAY_FOTO = 1
+        private const val PREYESTERDAY_PHOTO = 2
     }
-
 }
