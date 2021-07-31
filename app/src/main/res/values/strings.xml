@@ -7,4 +7,8 @@
     <string name="wiki_helper_text">Поищите в Википедии</string>
     <string name="text_is_too_long">Текст слишком длинный!</string>
     <string name="no_description">К фотографии нет описания.</string>
+    <string name="settings">Настройки</string>
+    <string name="lovely">Любимые</string>
+    <string name="settings_2">Settings</string>
+    <string name="search">Поиск</string>
 </resources>

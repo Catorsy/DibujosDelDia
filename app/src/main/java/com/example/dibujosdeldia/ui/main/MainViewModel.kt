@@ -17,7 +17,7 @@ class MainViewModel(
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) :
     ViewModel() {
-
+//сюда добавить дату фото
     fun getData(): LiveData<PictureOfTheDayData> {
         sendServerRequest()
         return liveDataForViewToObserve
