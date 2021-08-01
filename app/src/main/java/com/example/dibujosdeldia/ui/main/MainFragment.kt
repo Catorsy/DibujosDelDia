@@ -2,6 +2,7 @@ package com.example.dibujosdeldia.ui.main
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -23,6 +24,8 @@ import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.chipGroup
 import kotlinx.android.synthetic.main.settings_fragment.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -30,7 +33,22 @@ class MainFragment : Fragment() {
     private lateinit var binding: MainFragmentBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private var myFoto = TODAY_FOTO
+    private val foto = "2020-09-28"
+    val currentDate = SimpleDateFormat("yyyy-MM-dd").format(Date())
+
+    val yesterdayDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        LocalDate.now().minusDays(1).toString()
+    } else {
+        val yesterdayDate = currentDate
+        Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
+    }
+
+    val preYesterdayDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        LocalDate.now().minusDays(2).toString()
+    } else {
+        val yesterdayDate = currentDate
+        Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +60,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData().observe(viewLifecycleOwner, //сюда передать дату фото
+        viewModel.getData(currentDate).observe(viewLifecycleOwner, //сюда передать дату фото
             Observer<PictureOfTheDayData> { renderData(it) })
 
         //ищем по нажатию в википедии, сделаем три языка. Как бы это автоматизировать на все...
@@ -94,18 +112,18 @@ class MainFragment : Fragment() {
 
         chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
-                Toast.makeText(context, "Выбран ${it.text}",
-                    Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Выбран ${it.text}",
+//                    Toast.LENGTH_SHORT).show()
             }
             when {
                 preyesterday_foto.isChecked -> {
-                    myFoto = PREYESTERDAY_PHOTO
+                    viewModel.getData(preYesterdayDate as String)
                 }
                 yesterday_foto.isChecked -> {
-                    myFoto = YESTERDAY_FOTO
+                    viewModel.getData(yesterdayDate as String)
                 }
                 today_foto.isChecked -> {
-                    myFoto = TODAY_FOTO
+                    viewModel.getData(currentDate)
                 }
             }
         }
@@ -195,8 +213,5 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
         private var isMain = true
-        private const val TODAY_FOTO = 0
-        private const val YESTERDAY_FOTO = 1
-        private const val PREYESTERDAY_PHOTO = 2
     }
 }
