@@ -24,10 +24,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         navigation_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navigation_about -> Toast.makeText(context, "Приложение создано в июле 2021го",
-                    Toast.LENGTH_SHORT).show()
-                R.id.navigation_consejo -> Toast.makeText(context, "Используйте красный фонарик!",
-                    Toast.LENGTH_SHORT).show()
+                R.id.navigation_about -> {
+                    Toast.makeText(context, "Приложение создано в июле 2021го", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+                R.id.navigation_consejo -> {
+                    Toast.makeText(context, "Используйте красный фонарик!", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
             }
             true
         }

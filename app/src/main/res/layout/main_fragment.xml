@@ -9,14 +9,14 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#031427">
+        android:background="?nest_back">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="#031427"
+            android:background="?constrait_back"
             android:padding="20dp">
 
             <com.google.android.material.chip.ChipGroup
@@ -31,7 +31,7 @@
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:id="@+id/preyesterday_foto"
-                    app:chipBackgroundColor="#4F608C"
+                    app:chipBackgroundColor="?chip_back_dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Позавчера" />
@@ -39,7 +39,7 @@
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:id="@+id/yesterday_foto"
-                    app:chipBackgroundColor="#E64F608C"
+                    app:chipBackgroundColor="?chip_back_middle"
                     android:layout_width="wrap_content"
                     android:letterSpacing="@integer/material_motion_duration_long_2"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:id="@+id/today_foto"
-                    app:chipBackgroundColor="#CC4F608C"
+                    app:chipBackgroundColor="?chip_back_bright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Сегодня" />
@@ -62,32 +62,32 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/search_wiki"
                 android:soundEffectsEnabled="true"
-                android:textColorHint="@color/light_blue"
+                android:textColorHint="?text_input_text_hint"
                 app:boxStrokeWidth="1dp"
                 app:boxStrokeWidthFocused="2dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
-                app:counterTextColor="@color/light_blue"
+                app:counterTextColor="?text_input_counter"
                 app:endIconCheckable="true"
                 app:endIconDrawable="@drawable/ic_baseline_clear_light_24"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/light_blue"
+                app:endIconTint="?text_input_end_icon"
                 app:helperText="@string/wiki_helper_text"
-                app:helperTextTextColor="@color/light_blue"
-                app:hintTextColor="@color/white"
+                app:helperTextTextColor="?text_input_helper_text"
+                app:hintTextColor="?text_input_text_hint_up"
                 app:layout_constraintBottom_toTopOf="@+id/image_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:startIconCheckable="true"
                 app:startIconDrawable="@drawable/ic_wiki"
-                app:startIconTint="@color/light_blue">
+                app:startIconTint="?text_input_start_icon">
                 <!--&lt;!&ndash;       Просто текствью в албоме исчезает-->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/light_blue" />
+                    android:textColor="?text_input_text_input" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.example.dibujosdeldia.ui.main.util.EquilateralImageView
@@ -124,8 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:outlineAmbientShadowColor="@color/white"
-        app:backgroundTint="@color/grey_blue"
+        app:backgroundTint="?bottom_app_bar_back"
         app:fabAlignmentMode="end"
         app:fabAnimationMode="scale"
         app:fabCradleMargin="5dp"
@@ -133,14 +132,15 @@
         app:fabCradleVerticalOffset="5dp"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_baseline_emoji_nature_24" />
+        app:navigationIcon="?navigation_icon"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
+        android:backgroundTint="?fab_back"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_baseline_star_border_24"
-        app:tint="@color/light_blue" />
+        app:tint="?fab_color_emblem" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

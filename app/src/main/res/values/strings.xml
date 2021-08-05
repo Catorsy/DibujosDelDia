@@ -11,4 +11,10 @@
     <string name="lovely">Любимые</string>
     <string name="settings_2">Settings</string>
     <string name="search">Поиск</string>
+    <string name="not_a_picture">Сегодня НАСА присылает не картинку.</string>
+    <string name="choose_app_theme">Выберите тему приложения:</string>
+    <string name="standart">Стандартная</string>
+    <string name="black_and_white">Чёрно-белая</string>
+    <string name="bright">Яркая</string>
+    <string name="this_theme_is_not_ready_yet">Эта тема ещё не разработана.</string>
 </resources>
