@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    Chips background-->
+    <attr name="chip_back_bright" format="reference"/>
+    <attr name="chip_back_middle" format="reference"/>
+    <attr name="chip_back_dark" format="reference"/>
+<!--    Backgroungs-->
+    <attr name="nest_back" format="reference"/>
+    <attr name="sheet_back" format="reference"/>
+    <attr name="constrait_back" format="reference"/>
+<!--    Texts-->
+    <attr name="sheet_text" format="reference"/>
+    <attr name="chip_text" format="reference"/>
+<!--    FAB-->
+    <attr name="fab_back" format="reference"/>
+    <attr name="fab_color_emblem" format="reference"/>
+<!--    BottomAppBar-->
+    <attr name="bottom_app_bar_back" format="reference"/>
+    <attr name="bottom_app_bar" format="reference"/>
+<!--    TextInputWiki-->
+    <attr name="text_input_text_input" format="reference"/>
+    <attr name="text_input_counter" format="reference"/>
+    <attr name="text_input_end_icon" format="reference"/>
+    <attr name="text_input_start_icon" format="reference"/>
+    <attr name="text_input_helper_text" format="reference"/>
+    <attr name="text_input_text_hint" format="reference"/>
+    <attr name="text_input_text_hint_up" format="reference"/>
+    <!--    Icons-->
+    <attr name="navigation_icon" format="reference"/>
+    <attr name="action_icon_settings" format="reference"/>
+    <attr name="action_icon_favorite" format="reference"/>
+<!--    Fonts-->
+    <attr name="font_settings" format="reference"/>
+    <attr name="font_settings_button" format="reference"/>
+    <!--    Dimens-->
+    <attr name="dimen_choose_theme" format="reference"/>
+</resources>

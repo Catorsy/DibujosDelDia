@@ -22,10 +22,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.chipGroup
-import kotlinx.android.synthetic.main.settings_fragment.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -34,17 +34,26 @@ class MainFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val foto = "2020-09-28"
+
     val currentDate = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
+    val currentDateofWashington = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        ZonedDateTime.now(ZoneId.of("UTC-4")).toLocalDate()
+    } else {
+        val currentDateofWashington = currentDate
+    }
+    
     val yesterdayDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        LocalDate.now().minusDays(1).toString()
+        //LocalDate.now().minusDays(1).toString()
+        ZonedDateTime.now(ZoneId.of("UTC-4")).minusDays(1).toLocalDate()
     } else {
         val yesterdayDate = currentDate
         Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
     }
 
     val preYesterdayDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        LocalDate.now().minusDays(2).toString()
+        //LocalDate.now().minusDays(2).toString()
+        ZonedDateTime.now(ZoneId.of("UTC-4")).minusDays(2).toLocalDate()
     } else {
         val yesterdayDate = currentDate
         Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
@@ -60,7 +69,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData(currentDate).observe(viewLifecycleOwner, //сюда передать дату фото
+        viewModel.getData(currentDateofWashington.toString()).observe(viewLifecycleOwner, //сюда передать дату фото
             Observer<PictureOfTheDayData> { renderData(it) })
 
         //ищем по нажатию в википедии, сделаем три языка. Как бы это автоматизировать на все...
@@ -117,18 +126,17 @@ class MainFragment : Fragment() {
             }
             when {
                 preyesterday_foto.isChecked -> {
-                    viewModel.getData(preYesterdayDate as String)
+                    viewModel.getData(preYesterdayDate.toString())
                 }
                 yesterday_foto.isChecked -> {
-                    viewModel.getData(yesterdayDate as String)
+                        viewModel.getData(yesterdayDate.toString())
                 }
                 today_foto.isChecked -> {
-                    viewModel.getData(currentDate)
+                        viewModel.getData(currentDateofWashington.toString())
                 }
             }
         }
     }
-
 
     private fun renderData(data: PictureOfTheDayData) = with(binding) {
         when (data) {
@@ -213,5 +221,7 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
         private var isMain = true
+        private const val THEME_BASE = 0
+        private const val THEME_BLACK_AND_WHITE = 1
     }
 }
