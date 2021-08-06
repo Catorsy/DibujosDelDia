@@ -80,15 +80,15 @@ class MainFragment : Fragment() {
                     Toast.makeText(context, getString(R.string.text_is_too_long), Toast.LENGTH_SHORT).show()
             } else {
                startActivity(Intent(Intent.ACTION_VIEW).apply {
-                   var lang = Locale.getDefault().getLanguage() //получаем язык системы
-                   when {
-                       lang.equals("ru") -> {
+                   val lang = Locale.getDefault().getLanguage() //получаем язык системы
+                   when (lang){
+                       "ru" -> {
                            data = Uri.parse("https://ru.wikipedia.org/wiki/${input_edit_text.text.toString()}")
                        }
-                       lang.equals("en") -> {
+                       "en" -> {
                            data = Uri.parse("https://com.wikipedia.org/wiki/${input_edit_text.text.toString()}")
                        }
-                       lang.equals("es") -> {
+                       "es" -> {
                            data = Uri.parse("https://es.wikipedia.org/wiki/${input_edit_text.text.toString()}")
                        }
                        else -> {

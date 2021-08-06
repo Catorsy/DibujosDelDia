@@ -27,4 +27,10 @@
     <color name="background_chip_middle">#4D99A0B1</color>
     <color name="background_chip_dark">#6699A0B1</color>
     <color name="background_cheep_dark">#4F608C</color>
+    <color name="dark_grey">#1F2025</color>
+
+    <color name="pink">#c49fef</color>
+    <color name="blue">#7ca5ee</color>
+    <color name="light_blue">#9fd2f9</color>
+    <color name="light_rose">#f8e8fb</color>
 </resources>

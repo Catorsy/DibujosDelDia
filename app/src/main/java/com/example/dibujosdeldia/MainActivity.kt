@@ -18,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         if (ThemeHolder.myTheme == ThemeHolder.THEME_BLACK_AND_WHITE){
             setTheme(R.style.Theme_DibujosDelDiaBlackAndWhite)
         }
+        if (ThemeHolder.myTheme == ThemeHolder.THEME_BRIGHT){
+            setTheme(R.style.Theme_DibujosDelDiaBright)
+        }
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
