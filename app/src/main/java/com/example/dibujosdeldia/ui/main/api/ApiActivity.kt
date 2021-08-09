@@ -1,5 +1,6 @@
 package com.example.dibujosdeldia.ui.main.api
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.ActivityApiBinding
+import com.example.dibujosdeldia.ui.main.ThemeHolder
 
 
 private const val EARTH = 0
@@ -19,27 +21,50 @@ class ApiActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //setTheme(R.style.Theme_DibujosDelDiaBlackAndWhite)
+
+        ThemeHolder.myTheme = getSharedPreferences(ThemeHolder.THEME_KEY, Context.MODE_PRIVATE).getInt(ThemeHolder.THEME_KEY, 0)
+        if (ThemeHolder.myTheme == ThemeHolder.THEME_DEFAULT){
+            setTheme(R.style.Theme_DibujosDelDia)
+        }
+        if (ThemeHolder.myTheme == ThemeHolder.THEME_BLACK_AND_WHITE){
+            setTheme(R.style.Theme_DibujosDelDiaBlackAndWhite)
+        }
+        if (ThemeHolder.myTheme == ThemeHolder.THEME_BRIGHT){
+            setTheme(R.style.Theme_DibujosDelDiaBright)
+        }
+
         binding = ActivityApiBinding.inflate(layoutInflater)
         setContentView(binding.root)
         with(binding) {
             viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
             tabLayout.setupWithViewPager(viewPager)
+            //setCustomTabs()
+            setHighlightedTab(EARTH)
         }
-        setHighlightedTab(EARTH)
 
+    //просто хардкод
+//    private fun setCustomTabs() {
+//        val layoutInflater = LayoutInflater.from(this)
+//        with(binding) {
+//            tabLayout.getTabAt(0)?.customView =
+//                layoutInflater.inflate(R.layout.activity_api_custom_tab_earth, null)
+//            tabLayout.getTabAt(1)?.customView =
+//                layoutInflater.inflate(R.layout.activity_api_custom_tab_mars, null)
+//            tabLayout.getTabAt(2)?.customView =
+//                layoutInflater.inflate(R.layout.activity_api_custom_tab_weather, null)
+//        }
+//    }
+//}
+
+        //слушатель перелистывания
         binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
             override fun onPageSelected(position: Int) {
                 setHighlightedTab(position)
             }
-
             override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
         })
     }
 
@@ -75,7 +100,7 @@ class ApiActivity : AppCompatActivity() {
             .setTextColor(
                 ContextCompat.getColor(
                     this@ApiActivity,
-                    R.color.colorAccent
+                    R.color.yellow
                 )
             )
         with(binding) {
@@ -92,7 +117,7 @@ class ApiActivity : AppCompatActivity() {
             .setTextColor(
                 ContextCompat.getColor(
                     this@ApiActivity,
-                    R.color.colorAccent
+                    R.color.yellow
                 )
             )
         with(binding) {
@@ -109,7 +134,7 @@ class ApiActivity : AppCompatActivity() {
             .setTextColor(
                 ContextCompat.getColor(
                     this@ApiActivity,
-                    R.color.colorAccent
+                    R.color.yellow
                 )
             )
         with(binding) {

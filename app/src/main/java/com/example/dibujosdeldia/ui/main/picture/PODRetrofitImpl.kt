@@ -11,15 +11,12 @@ import java.io.IOException
 class PODRetrofitImpl {
     private val baseUrl = "https://api.nasa.gov/"
 
-    var a = ""
-
     fun getRetrofitImpl(): PictureOfTheDayAPI {
         val podRetrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(createOkHttpClient(PODInterceptor()))
             .build()
-        a = podRetrofit.toString()
         return podRetrofit.create(PictureOfTheDayAPI::class.java)
     }
 

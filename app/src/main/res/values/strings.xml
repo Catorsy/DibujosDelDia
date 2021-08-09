@@ -20,4 +20,7 @@
     <string name="help_to_observe_sky">Советы по наблюдению ночного неба</string>
     <string name="about_app">О приложении</string>
     <string name="what_can_i_do_if_no_picture">Что делать, если нет картинки?</string>
+    <string name="earth">Земля</string>
+    <string name="mars">Марс</string>
+    <string name="weather">Погода</string>
 </resources>

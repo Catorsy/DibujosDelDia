@@ -8,6 +8,7 @@
     <attr name="nest_back" format="reference"/>
     <attr name="sheet_back" format="reference"/>
     <attr name="constrait_back" format="reference"/>
+    <attr name="tab_layout_back" format="reference"/>
 <!--    Texts-->
     <attr name="sheet_text" format="reference"/>
     <attr name="chip_text" format="reference"/>

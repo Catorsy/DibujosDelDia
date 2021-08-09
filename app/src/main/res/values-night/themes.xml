@@ -21,6 +21,7 @@
         <item name="nest_back">@color/dark_grey</item>
         <item name="sheet_back">@color/black</item>
         <item name="constrait_back">@color/dark_grey</item>
+        <item name="tab_layout_back">@color/black</item>
         <!--    Texts-->
         <item name="sheet_text">@color/light_grey</item>
         <item name="chip_text">@color/light_grey</item>

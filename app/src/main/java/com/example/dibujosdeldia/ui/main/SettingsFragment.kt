@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
 
     private fun saveMyThemeToDisk(myTheme: Int) {
         activity?.let {
-            with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+            with(it.getSharedPreferences(ThemeHolder.THEME_KEY, Context.MODE_PRIVATE).edit()) {
                 putInt(ThemeHolder.THEME_KEY, myTheme)
                 apply()
             }
