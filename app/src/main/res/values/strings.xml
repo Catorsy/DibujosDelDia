@@ -17,4 +17,7 @@
     <string name="black_and_white">Чёрно-белая</string>
     <string name="bright">Яркая</string>
     <string name="this_theme_is_not_ready_yet">Эта тема ещё не разработана.</string>
+    <string name="help_to_observe_sky">Советы по наблюдению ночного неба</string>
+    <string name="about_app">О приложении</string>
+    <string name="what_can_i_do_if_no_picture">Что делать, если нет картинки?</string>
 </resources>

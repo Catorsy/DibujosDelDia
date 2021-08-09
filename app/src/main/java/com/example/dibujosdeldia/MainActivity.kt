@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.dibujosdeldia.ui.main.MainFragment
-import com.example.dibujosdeldia.ui.main.SettingsFragment
 import com.example.dibujosdeldia.ui.main.ThemeHolder
 
 class MainActivity : AppCompatActivity() {
