@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_view">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,55 +34,68 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?text_input_text_input"
-                android:text="@string/enter_lon">
-            </TextView>
+                android:text="@string/enter_lon"
+                android:textColor="?text_input_text_input"></TextView>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/get_lon"
-                android:hint="   -180 180"
-                android:textColor="?text_input_text_input"
-                android:inputType="numberSigned"
-                android:textColorHint="?text_input_text_input"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </androidx.appcompat.widget.AppCompatEditText>
+                android:layout_height="wrap_content"
+                android:digits="0123456789-."
+                android:hint="   -180 180"
+                android:inputType="number"
+                android:textColor="?text_input_text_input"
+                android:textColorHint="?text_input_text_input"></androidx.appcompat.widget.AppCompatEditText>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?text_input_text_input"
-                android:text="@string/enter_lat">
-            </TextView>
+                android:text="@string/enter_lat"
+                android:textColor="?text_input_text_input"></TextView>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/get_lat"
-                android:hint="   -90 90"
-                android:textColor="?text_input_text_input"
-                android:inputType="numberSigned"
-                android:textColorHint="?text_input_text_input"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </androidx.appcompat.widget.AppCompatEditText>
+                android:layout_height="wrap_content"
+                android:digits="0123456789-."
+                android:hint="   -90 90"
+                android:inputType="number"
+                android:textColor="?text_input_text_input"
+                android:textColorHint="?text_input_text_input"></androidx.appcompat.widget.AppCompatEditText>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/lot_lan_ok"
-            style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Применить!"
-            android:textStyle="bold"
-            android:textColor="?text_input_text_input">
+            android:orientation="horizontal">
 
-        </Button>
+            <Button
+                android:id="@+id/lot_lan_ok"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ok"
+                android:textColor="?text_input_text_input"
+                android:textStyle="bold"></Button>
+
+            <Button
+                android:id="@+id/closer_longer_button"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/longer"
+                android:textColor="?text_input_text_input"
+                android:textStyle="bold"
+                android:visibility="invisible"></Button>
+
+        </LinearLayout>
     </LinearLayout>
 
     <ImageView
@@ -92,8 +108,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/image_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -123,4 +141,5 @@
             android:src="@drawable/swipe_indicator_passive" />
 
     </LinearLayout>
-</FrameLayout>
+    <include layout="@layout/bottom_earth_sheet_layout" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

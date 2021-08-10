@@ -25,4 +25,8 @@
     <string name="weather">Погода</string>
     <string name="enter_lat">Введите широту:</string>
     <string name="enter_lon">Введите долготу:</string>
+    <string name="ok">Применить!</string>
+    <string name="longer">Отдалить</string>
+    <string name="closer">Приблизить</string>
+    <string name="help">Подсказки</string>
 </resources>

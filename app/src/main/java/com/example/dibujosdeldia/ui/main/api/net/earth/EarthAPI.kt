@@ -9,6 +9,7 @@ interface EarthAPI {
     fun getPictureOfTheDay(
         @Query("lon") lon: Float,
         @Query("lat") lat: Float,
+        @Query("dim") dim: Float,
         @Query("date") date: String,
         @Query("api_key") apiKey: String,
     ): Call<EarthResponseData>

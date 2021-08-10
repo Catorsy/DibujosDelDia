@@ -13,18 +13,18 @@ class EarthViewModel(
     private val retrofitImpl: EarthRetrofitImpl = EarthRetrofitImpl()
 ) :
     ViewModel() {
-    fun getData(lon: Float, lat: Float, date: String): LiveData<EarthData> {
-        sendServerRequest(lon, lat, date)
+    fun getData(lon: Float, lat: Float, dim : Float, date: String): LiveData<EarthData> {
+        sendServerRequest(lon, lat, dim, date)
         return liveDataForViewToObserve
     }
 
-    private fun sendServerRequest(lon: Float, lat: Float, date: String) {
+    private fun sendServerRequest(lon: Float, lat: Float, dim : Float, date: String) {
         liveDataForViewToObserve.value = EarthData.Loading(null)
         val apiKey: String = BuildConfig.NASA_API_KEY
         if (apiKey.isBlank()) {
             EarthData.Error(Throwable("Вам нужен API ключ"))
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(lon, lat, date, apiKey).enqueue(object :
+            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(lon, lat, dim, date, apiKey).enqueue(object :
                 Callback<EarthResponseData> {
                 override fun onResponse(
                     call: Call<EarthResponseData>,
