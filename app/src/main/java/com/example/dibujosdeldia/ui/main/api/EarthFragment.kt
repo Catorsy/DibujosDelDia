@@ -89,6 +89,7 @@ class EarthFragment : Fragment() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_DRAGGING
     }
 
+    //только для коммита
 
     private fun renderData(data: EarthData) = with(binding) {
         when (data) {
