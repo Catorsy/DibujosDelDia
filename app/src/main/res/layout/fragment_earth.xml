@@ -6,7 +6,84 @@
     android:background="?constrait_back"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/wait_for_it"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?text_input_text_input"
+                android:text="@string/enter_lon">
+            </TextView>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/get_lon"
+                android:hint="   -180 180"
+                android:textColor="?text_input_text_input"
+                android:inputType="numberSigned"
+                android:textColorHint="?text_input_text_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </androidx.appcompat.widget.AppCompatEditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?text_input_text_input"
+                android:text="@string/enter_lat">
+            </TextView>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/get_lat"
+                android:hint="   -90 90"
+                android:textColor="?text_input_text_input"
+                android:inputType="numberSigned"
+                android:textColorHint="?text_input_text_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </androidx.appcompat.widget.AppCompatEditText>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/lot_lan_ok"
+            style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Применить!"
+            android:textStyle="bold"
+            android:textColor="?text_input_text_input">
+
+        </Button>
+    </LinearLayout>
+
     <ImageView
+        android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@drawable/pngegg" />
@@ -44,5 +121,6 @@
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:src="@drawable/swipe_indicator_passive" />
+
     </LinearLayout>
 </FrameLayout>
