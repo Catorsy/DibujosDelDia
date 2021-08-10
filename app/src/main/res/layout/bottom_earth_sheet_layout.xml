@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_earth_sheet_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?sheet_back"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="150dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <View
+        android:id="@+id/bottom_sheet_line"
+        android:layout_width="25dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#663b4351"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_description_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="?sheet_text"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
+        tools:text="@string/help" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="?sheet_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header"
+        android:text="Спутник пролетает над каждой точкой своего популярного маршрута раз в 16 суток. Фотографий из удалённых мест земного шара в базе НАСА может не быть.
+\nОблака могут быть помехой.
+\nШироты южного полушария и западные долготы считаются отрицательными.
+\n\nВы можете попробовать ввести следующие координаты:
+\n широта - долгота
+\nМосква 55.45 37.37
+\nМадрид 40.24 -3.41
+\nЛондон 51.30 -00.07
+\nРим 45.54 12.3
+\nПекин 39.54 116.23
+\nСингапур 1.29 103.85
+\nСидней -33.31 151.12
+\nЛос-Анджелес 34.02 -118.16
+\nВашингтон 38.53 -77.02
+\nБуэнос-Айрес -34.35 -58.22
+\nБразилиа -15.47 -47.52
+\nСантьяго -33.27 -70.40
+\nточка в лесу Австралии -33.52 151.12
+\nточка в пустыне Атакама -27.37 -70.31
+\nточка в пустыне Сахара 30.44 7.76
+\nточка в Атлантическом океане 33.27 -8.56
+\nточка в Тихом океане -24.03 -71.32
+\nточка в Ледовитом океане 81.36 31.56
+\nточка в Антарктике -78.3 8.02
+\nвулкан Тейде 28.27 -16.64
+\nвулкан Кракатау -6.1 105.42
+\nГалапагосские острова -0.62 -90.45
+\nАризонский кратер 35.01 -111.01
+\nкратер Вредефорт -27 27.3
+" >
+
+    </TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

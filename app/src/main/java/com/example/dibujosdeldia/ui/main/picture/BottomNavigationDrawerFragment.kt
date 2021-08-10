@@ -32,6 +32,10 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     Toast.makeText(context, "Используйте красный фонарик!", Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
+                R.id.what_can_i_do -> {
+                    Toast.makeText(context, "Нажмите на \"заглушку\", и приложение переведёт Вас в браузер.", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
             }
             true
         }

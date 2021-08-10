@@ -8,20 +8,18 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import coil.api.load
 import com.example.dibujosdeldia.MainActivity
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.MainFragmentBinding
+import com.example.dibujosdeldia.ui.main.api.ApiActivity
 import com.example.dibujosdeldia.ui.main.picture.BottomNavigationDrawerFragment
 import com.example.dibujosdeldia.ui.main.picture.PictureOfTheDayData
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
-import kotlinx.android.synthetic.main.main_fragment.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
@@ -34,6 +32,7 @@ class MainFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val foto = "2020-09-28"
+    private lateinit var myLink : String
 
     val currentDate = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
@@ -73,30 +72,36 @@ class MainFragment : Fragment() {
             Observer<PictureOfTheDayData> { renderData(it) })
 
         //ищем по нажатию в википедии, сделаем три языка. Как бы это автоматизировать на все...
-        input_layout.setStartIconOnClickListener {
-            val myTextLength = input_edit_text?.text?.length
+        binding.inputLayout.setStartIconOnClickListener {
+            val myTextLength = binding.inputEditText?.text?.length
             if (myTextLength != null && myTextLength > 20) { //не знаю, как узнать, переполнен ли счетчик, напишу условия сама
-                input_layout.isStartIconCheckable = false //И что?! Ничего не происходит ...может, сработало бы visability gone
+                binding.inputLayout.isStartIconCheckable = false //И что?! Ничего не происходит ...может, сработало бы visability gone
                     Toast.makeText(context, getString(R.string.text_is_too_long), Toast.LENGTH_SHORT).show()
             } else {
                startActivity(Intent(Intent.ACTION_VIEW).apply {
-                   var lang = Locale.getDefault().getLanguage() //получаем язык системы
-                   when {
-                       lang.equals("ru") -> {
-                           data = Uri.parse("https://ru.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                   val lang = Locale.getDefault().getLanguage() //получаем язык системы
+                   when (lang){
+                       "ru" -> {
+                           data = Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
                        }
-                       lang.equals("en") -> {
-                           data = Uri.parse("https://com.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                       "en" -> {
+                           data = Uri.parse("https://com.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
                        }
-                       lang.equals("es") -> {
-                           data = Uri.parse("https://es.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                       "es" -> {
+                           data = Uri.parse("https://es.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
                        }
                        else -> {
-                           data = Uri.parse("https://com.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+                           data = Uri.parse("https://com.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
                        }
                    }
                })
             }
+        }
+
+        binding.imageView.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(myLink)
+            })
         }
 
         setBottomSheetBehavior(bottom_sheet_container) //это когда мы научимся анимации
@@ -119,19 +124,19 @@ class MainFragment : Fragment() {
 
            setBottomAppBar(view)
 
-        chipGroup.setOnCheckedChangeListener { chipGroup, position ->
+        binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
 //                Toast.makeText(context, "Выбран ${it.text}",
 //                    Toast.LENGTH_SHORT).show()
             }
             when {
-                preyesterday_foto.isChecked -> {
+                binding.preyesterdayFoto.isChecked -> {
                     viewModel.getData(preYesterdayDate.toString())
                 }
-                yesterday_foto.isChecked -> {
+                binding.yesterdayFoto.isChecked -> {
                         viewModel.getData(yesterdayDate.toString())
                 }
-                today_foto.isChecked -> {
+                binding.todayFoto.isChecked -> {
                         viewModel.getData(currentDateofWashington.toString())
                 }
             }
@@ -143,12 +148,13 @@ class MainFragment : Fragment() {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
+                myLink = url!!
                     //myFoto = serverResponseData.date.toString()
                 if (url.isNullOrEmpty()) {
                     Toast.makeText(context, getString(R.string.link_is_empty), Toast.LENGTH_SHORT).show()
                 } else {
                     //showSuccess()
-                    image_view.load(url) {
+                    binding.imageView.load(url) {
                         lifecycle(this@MainFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
@@ -200,21 +206,22 @@ class MainFragment : Fragment() {
 
     private fun setBottomAppBar(view: View) {
         val context = activity as MainActivity
-        context.setSupportActionBar(bottom_app_bar)
+        context.setSupportActionBar(binding.bottomAppBar)
         setHasOptionsMenu(true)
-        fab.setOnClickListener {
-            if (isMain) {
-                isMain = false
-                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_border_24))
-                bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
-            } else {
-                isMain = true
-                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                fab.setImageDrawable(ContextCompat.getDrawable(context,
-                    R.drawable.ic_baseline_star_24))
-                bottom_app_bar.replaceMenu(R.menu.bottom_bar_menu)
-            }
+        binding.fab.setOnClickListener {
+//            if (isMain) {
+//                isMain = false
+//                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+//                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_border_24))
+//                bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
+//            } else {
+//                isMain = true
+//                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+//                fab.setImageDrawable(ContextCompat.getDrawable(context,
+//                    R.drawable.ic_baseline_star_24))
+//                bottom_app_bar.replaceMenu(R.menu.bottom_bar_menu)
+//            }
+            activity?.let { startActivity(Intent(it, ApiActivity::class.java)) }
         }
     }
 
