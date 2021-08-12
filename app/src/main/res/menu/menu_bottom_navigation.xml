@@ -13,5 +13,9 @@
             android:id="@+id/navigation_about"
             android:icon="@drawable/ic_baseline_self_improvement_24"
             android:title="@string/about_app" />
+        <item
+            android:id="@+id/help_developer"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Баловство разработчика" />
     </group>
 </menu>

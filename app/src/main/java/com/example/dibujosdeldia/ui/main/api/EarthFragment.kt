@@ -2,11 +2,9 @@ package com.example.dibujosdeldia.ui.main.api
 
 import android.os.Build
 import android.os.Bundle
-import android.view.FrameMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -19,8 +17,6 @@ import com.example.dibujosdeldia.ui.main.api.net.earth.EarthData
 import com.example.dibujosdeldia.ui.main.api.net.earth.EarthViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_earth_sheet_layout.*
-import kotlinx.android.synthetic.main.bottom_sheet_layout.*
-import kotlinx.android.synthetic.main.fragment_earth.*
 import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -33,7 +29,8 @@ class EarthFragment : Fragment() {
 
     private var lat = 30F
     private var lon = -93F
-    private var dim = 0.10F //управляет тем, сколько на картинку поместится
+    private var dim = ZoomHolder.BIGZOOM //управляет тем, сколько на картинку поместится
+    private var bigZoom = true
 
     val currentDate = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
@@ -53,8 +50,9 @@ class EarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData(lon, lat, dim, currentDateofWashington.toString()).observe(viewLifecycleOwner,
-            Observer<EarthData> { renderData(it) })
+        val observer = Observer<EarthData> { renderData(it) }
+        viewModel.getData(lon, lat, dim, currentDateofWashington.toString()).observe(viewLifecycleOwner, observer)
+        getData()
 
         setBottomSheetBehavior(bottom_earth_sheet_container)
 
@@ -62,34 +60,36 @@ class EarthFragment : Fragment() {
             lat = binding.getLat.text.toString().toFloat()
             lon = binding.getLon.text.toString().toFloat()
             if (lat > 90 || lat < -90){
-                Toast.makeText(context, "Широта должна укладываться от северного полюса — +90°, до южного полюса — −90°", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.lat_help), Toast.LENGTH_SHORT).show()
             }
             if (lon > 180 || lon < -180){
-                Toast.makeText(context, "Долгота должна укладываться от 0° до +180° на восток и от 0° до −180° на запад", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.lon_help), Toast.LENGTH_SHORT).show()
             }
-            viewModel.getData(lon, lat, dim, currentDateofWashington.toString()).observe(viewLifecycleOwner,
-                Observer<EarthData> { renderData(it) })
+            getData()
         }
 
         binding.closerLongerButton.setOnClickListener {
-            if(dim == 0.1F){
-                dim = 0.25F
-                closer_longer_button.text = getString(R.string.closer)
+            if(bigZoom){
+                dim = ZoomHolder.LITTLEZOOM
+                bigZoom = false
+                binding.closerLongerButton.text = getString(R.string.closer)
             } else {
-                dim = 0.1F
-                closer_longer_button.text = getString(R.string.longer)
+                dim = ZoomHolder.BIGZOOM
+                binding.closerLongerButton.text = getString(R.string.longer)
+                bigZoom = true
             }
-            viewModel.getData(lon, lat, dim, currentDateofWashington.toString()).observe(viewLifecycleOwner,
-                Observer<EarthData> { renderData(it) })
+            getData()
         }
+    }
+
+    private fun getData(){
+        viewModel.getData(lon, lat, dim, currentDateofWashington.toString())
     }
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_DRAGGING
     }
-
-    //только для коммита
 
     private fun renderData(data: EarthData) = with(binding) {
         when (data) {
@@ -118,4 +118,9 @@ class EarthFragment : Fragment() {
             }
         }
     }
+}
+
+object ZoomHolder {
+    const val LITTLEZOOM = 0.25F
+    const val BIGZOOM = 0.1F
 }
