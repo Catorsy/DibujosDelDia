@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import coil.api.load
 import com.example.dibujosdeldia.MainActivity
 import com.example.dibujosdeldia.R
-import com.example.dibujosdeldia.databinding.MainFragmentBinding
 import com.example.dibujosdeldia.databinding.MainStartFragmentBinding
 import com.example.dibujosdeldia.ui.main.api.ApiActivity
 import com.example.dibujosdeldia.ui.main.picture.BottomNavigationDrawerFragment

@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/enter_lon"
-                android:textColor="?text_input_text_input"></TextView>
+                android:textColor="?text_input_text_input" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/get_lon"
@@ -45,7 +45,7 @@
                 android:hint="   -180 180"
                 android:inputType="number"
                 android:textColor="?text_input_text_input"
-                android:textColorHint="?text_input_text_input"></androidx.appcompat.widget.AppCompatEditText>
+                android:textColorHint="?text_input_text_input" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/enter_lat"
-                android:textColor="?text_input_text_input"></TextView>
+                android:textColor="?text_input_text_input" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/get_lat"
@@ -67,7 +67,7 @@
                 android:hint="   -90 90"
                 android:inputType="number"
                 android:textColor="?text_input_text_input"
-                android:textColorHint="?text_input_text_input"></androidx.appcompat.widget.AppCompatEditText>
+                android:textColorHint="?text_input_text_input" />
 
         </LinearLayout>
 
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ok"
                 android:textColor="?text_input_text_input"
-                android:textStyle="bold"></Button>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/closer_longer_button"
@@ -93,7 +93,7 @@
                 android:text="@string/longer"
                 android:textColor="?text_input_text_input"
                 android:textStyle="bold"
-                android:visibility="invisible"></Button>
+                android:visibility="invisible" />
 
         </LinearLayout>
     </LinearLayout>

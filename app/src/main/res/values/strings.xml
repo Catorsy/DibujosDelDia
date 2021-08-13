@@ -31,4 +31,5 @@
     <string name="help">Подсказки</string>
     <string name="lat_help">Широта должна укладываться от северного полюса — +90°, до южного полюса — −90°</string>
     <string name="lon_help">Долгота должна укладываться от 0° до +180° на восток и от 0° до −180° на запад</string>
+    <string name="random_sol">Случайный сол</string>
 </resources>
