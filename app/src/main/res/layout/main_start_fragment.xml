@@ -81,6 +81,7 @@
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:startIconCheckable="true"
+                android:visibility="gone"
                 app:startIconDrawable="@drawable/ic_wiki"
                 app:startIconTint="?text_input_start_icon">
                 <!--&lt;!&ndash;       Просто текствью в албоме исчезает-->
@@ -95,11 +96,12 @@
                 android:id="@+id/wiki_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
+                android:paddingTop="45dp"
+                app:layout_constraintBottom_toTopOf="@+id/image_view"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.854"
+                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_wikipedia"
                 app:startIconTint="?text_input_start_icon">
             </androidx.appcompat.widget.AppCompatImageView>

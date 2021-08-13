@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import coil.api.load
 import com.example.dibujosdeldia.MainActivity
 import com.example.dibujosdeldia.R
-import com.example.dibujosdeldia.databinding.MainFragmentBinding
+import com.example.dibujosdeldia.databinding.MainStartFragmentBinding
 import com.example.dibujosdeldia.ui.main.api.ApiActivity
 import com.example.dibujosdeldia.ui.main.picture.BottomNavigationDrawerFragment
 import com.example.dibujosdeldia.ui.main.picture.PictureOfTheDayData
@@ -28,7 +28,7 @@ import java.util.*
 
 class MainFragment : Fragment() {
     val viewModel : MainViewModel by viewModels()
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: MainStartFragmentBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val foto = "2020-09-28"
@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding = MainStartFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

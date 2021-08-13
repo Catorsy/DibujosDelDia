@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.dibujosdeldia.R
+import com.example.dibujosdeldia.ui.main.api.DeveloperHelpFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_navig_layout.*
 
@@ -34,6 +35,11 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 }
                 R.id.what_can_i_do -> {
                     Toast.makeText(context, "Нажмите на \"заглушку\", и приложение переведёт Вас в браузер.", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+                R.id.help_developer -> {
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, DeveloperHelpFragment())?.
+                            addToBackStack(null)?.commit()
                     dismiss()
                 }
             }
