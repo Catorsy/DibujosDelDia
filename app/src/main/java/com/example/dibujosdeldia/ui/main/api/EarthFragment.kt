@@ -17,6 +17,7 @@ import com.example.dibujosdeldia.ui.main.api.net.earth.EarthData
 import com.example.dibujosdeldia.ui.main.api.net.earth.EarthViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_earth_sheet_layout.*
+import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -57,15 +58,21 @@ class EarthFragment : Fragment() {
         setBottomSheetBehavior(bottom_earth_sheet_container)
 
         binding.lotLanOk.setOnClickListener {
-            lat = binding.getLat.text.toString().toFloat()
-            lon = binding.getLon.text.toString().toFloat()
-            if (lat > 90 || lat < -90){
-                Toast.makeText(context, getString(R.string.lat_help), Toast.LENGTH_SHORT).show()
-            }
-            if (lon > 180 || lon < -180){
-                Toast.makeText(context, getString(R.string.lon_help), Toast.LENGTH_SHORT).show()
+            try {
+                lat = binding.getLat.text.toString().toFloat()
+                lon = binding.getLon.text.toString().toFloat()
+                if (lat > 90 || lat < -90){
+                    Toast.makeText(context, getString(R.string.lat_help), Toast.LENGTH_SHORT).show()
+                }
+                if (lon > 180 || lon < -180){
+                    Toast.makeText(context, getString(R.string.lon_help), Toast.LENGTH_SHORT).show()
+                }
+
+            } catch (e: NumberFormatException) {
+                Toast.makeText(context, "Вы ничего не ввели.", Toast.LENGTH_LONG).show()
             }
             getData()
+            hideKeyboard()
         }
 
         binding.closerLongerButton.setOnClickListener {

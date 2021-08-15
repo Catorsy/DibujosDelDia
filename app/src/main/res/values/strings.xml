@@ -32,4 +32,11 @@
     <string name="lat_help">Широта должна укладываться от северного полюса — +90°, до южного полюса — −90°</string>
     <string name="lon_help">Долгота должна укладываться от 0° до +180° на восток и от 0° до −180° на запад</string>
     <string name="random_sol">Случайный сол</string>
+    <string name="enter_sol">Введите сол</string>
+    <string name="from_26_to_3206">от 26 до 3206</string>
+    <string name="take_my_sol">Принять мой сол</string>
+    <string name="wrong_sol">Вы ввели неправильный сол</string>
+    <string name="change_camera_button">Сменить камеру на заднюю</string>
+    <string name="change_camera_to_front">Сменить камеру на переднюю</string>
+    <string name="go_to_curiosity_button">Перейти на сайт Кюриосити!</string>
 </resources>

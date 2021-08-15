@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?constrait_back"
+    tools:context=".ui.main.api.ApiActivity">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:background="?constrait_back"
+    android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tex_mars_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
+            android:text="Марсоход 'Кьюриосити' был запущен с мыса Канаверал 26 ноября 2011 года и приземлился на Марсе в кратере Гейла 6 августа 2012 года.
+\n\nКратер Гейла имеет диаметр 154км и, возможно, заполнен эродированными горными породами, озёрными отложенями.
+\nНа 15 августа 2021 года марсоход преодолел более 26км. Он оснащён радиоизотопной системой питания, которая вырабатывает электричество из тепла радиоактивного распада плутония. Средняя скорость марсохода 30м/ч.
+\n\nНа марсоходе установлено несколько камер. Вы можете получать фотографии со следующих:
+\nFHAZ - передняя камера, ч/б фотографии
+\nFHAZ - задняя камера, ч/б фотографии
+\nMAST - мачтовая камера, ч/б и цветные фотографии
+\nCHEMCAM - 'геохимическая' камера, лазер, камера, спектрограф, ч/б
+\nNAVCAM - навигационная камера, ч/б
+\nMAHLI - 'геологическая' камера для детальных снимков поверхности, цветная
+\n\nВНИМАНИЕ! Не всеми камерами 'Кьюриосити' пользовался каждый сол. В какой-то сол фотографий с запрошенной камеры может не быть.
+\n\nПродолжительность сола - марсианских суток - 24 ч 39 мин. Марсианский год длится 669 солов или 687 земных суток.
+\n\nДорогой Марс, с нетерпением ждём терраформирования и колонизации.
+"
+            android:textColor="?text_input_helper_text"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/go_to_curiosity"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/go_to_curiosity_button"
+        android:textColor="?text_input_helper_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tex_mars_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
