@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
-
+//ДЗ в процессе разработки
 class EarthFragment : Fragment() {
     private lateinit var binding : FragmentEarthBinding
     val viewModel : EarthViewModel by viewModels()
