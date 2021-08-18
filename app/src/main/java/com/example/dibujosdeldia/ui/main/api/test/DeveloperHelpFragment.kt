@@ -1,11 +1,15 @@
 package com.example.dibujosdeldia.ui.main.api.test
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.TestConstFileBinding
 import kotlinx.android.synthetic.main.test_const_file.*
@@ -36,6 +40,7 @@ class DeveloperHelpFragment : Fragment() {
         }
 
         binding.textView2.setOnClickListener {
+           // view.findNavController().navigate(R.id.action_developerHelpFragment_to_animationActivity2)
             activity?.let{
                 startActivity(Intent(it, AnimationActivity2::class.java))
             }
@@ -74,6 +79,7 @@ class DeveloperHelpFragment : Fragment() {
         binding.textView10.setOnClickListener {
             activity?.let {
                 startActivity(Intent(it, AnimationsActivityBonus::class.java))
+
             }
         }
     }

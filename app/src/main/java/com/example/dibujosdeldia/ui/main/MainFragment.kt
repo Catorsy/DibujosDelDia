@@ -1,10 +1,14 @@
 package com.example.dibujosdeldia.ui.main
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +23,10 @@ import com.example.dibujosdeldia.ui.main.picture.BottomNavigationDrawerFragment
 import com.example.dibujosdeldia.ui.main.picture.PictureOfTheDayData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.activity_animations_fab.*
+import kotlinx.android.synthetic.main.activity_animations_fab.fab
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
+import kotlinx.android.synthetic.main.main_fragment.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
@@ -27,12 +34,14 @@ import java.time.ZonedDateTime
 import java.util.*
 
 class MainFragment : Fragment() {
-    val viewModel : MainViewModel by viewModels()
+    val viewModel: MainViewModel by viewModels()
     private lateinit var binding: MainStartFragmentBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val foto = "2020-09-28"
-    private lateinit var myLink : String
+    private lateinit var myLink: String
+    private var isRotated = false
+    private var rotation = 360F
 
     val currentDate = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
@@ -41,7 +50,7 @@ class MainFragment : Fragment() {
     } else {
         val currentDateofWashington = currentDate
     }
-    
+
     val yesterdayDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         //LocalDate.now().minusDays(1).toString()
         ZonedDateTime.now(ZoneId.of("UTC-4")).minusDays(1).toLocalDate()
@@ -68,33 +77,40 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData(currentDateofWashington.toString()).observe(viewLifecycleOwner, //сюда передать дату фото
-            Observer<PictureOfTheDayData> { renderData(it) })
+        viewModel.getData(currentDateofWashington.toString())
+            .observe(viewLifecycleOwner, //сюда передать дату фото
+                Observer<PictureOfTheDayData> { renderData(it) })
 
         //ищем по нажатию в википедии, сделаем три языка. Как бы это автоматизировать на все...
         binding.inputLayout.setStartIconOnClickListener {
             val myTextLength = binding.inputEditText?.text?.length
             if (myTextLength != null && myTextLength > 20) { //не знаю, как узнать, переполнен ли счетчик, напишу условия сама
-                binding.inputLayout.isStartIconCheckable = false //И что?! Ничего не происходит ...может, сработало бы visability gone
-                    Toast.makeText(context, getString(R.string.text_is_too_long), Toast.LENGTH_SHORT).show()
+                binding.inputLayout.isStartIconCheckable =
+                    false //И что?! Ничего не происходит ...может, сработало бы visability gone
+                Toast.makeText(context, getString(R.string.text_is_too_long), Toast.LENGTH_SHORT)
+                    .show()
             } else {
-               startActivity(Intent(Intent.ACTION_VIEW).apply {
-                   val lang = Locale.getDefault().getLanguage() //получаем язык системы
-                   when (lang){
-                       "ru" -> {
-                           data = Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-                       }
-                       "en" -> {
-                           data = Uri.parse("https://com.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-                       }
-                       "es" -> {
-                           data = Uri.parse("https://es.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-                       }
-                       else -> {
-                           data = Uri.parse("https://com.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-                       }
-                   }
-               })
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    val lang = Locale.getDefault().getLanguage() //получаем язык системы
+                    when (lang) {
+                        "ru" -> {
+                            data =
+                                Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                        }
+                        "en" -> {
+                            data =
+                                Uri.parse("https://com.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                        }
+                        "es" -> {
+                            data =
+                                Uri.parse("https://es.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                        }
+                        else -> {
+                            data =
+                                Uri.parse("https://com.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                        }
+                    }
+                })
             }
         }
 
@@ -122,7 +138,7 @@ class MainFragment : Fragment() {
 //            }
 //        })
 
-           setBottomAppBar(view)
+        setBottomAppBar(view)
 
         binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
@@ -134,10 +150,10 @@ class MainFragment : Fragment() {
                     viewModel.getData(preYesterdayDate.toString())
                 }
                 binding.yesterdayFoto.isChecked -> {
-                        viewModel.getData(yesterdayDate.toString())
+                    viewModel.getData(yesterdayDate.toString())
                 }
                 binding.todayFoto.isChecked -> {
-                        viewModel.getData(currentDateofWashington.toString())
+                    viewModel.getData(currentDateofWashington.toString())
                 }
             }
         }
@@ -149,9 +165,10 @@ class MainFragment : Fragment() {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
                 myLink = url!!
-                    //myFoto = serverResponseData.date.toString()
+                //myFoto = serverResponseData.date.toString()
                 if (url.isNullOrEmpty()) {
-                    Toast.makeText(context, getString(R.string.link_is_empty), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.link_is_empty), Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     //showSuccess()
                     binding.imageView.load(url) {
@@ -162,8 +179,8 @@ class MainFragment : Fragment() {
 
                         bottom_sheet_description_header.text = serverResponseData.title
                         bottom_sheet_description.text = serverResponseData.explanation
-                        if(serverResponseData.title.equals("")) {
-                            bottom_sheet_description.text =  getString(R.string.no_description)
+                        if (serverResponseData.title.equals("")) {
+                            bottom_sheet_description.text = getString(R.string.no_description)
                         }
                     }
                 }
@@ -190,9 +207,12 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_lovely -> Toast.makeText(context, getString(R.string.lovely),
-                Toast.LENGTH_SHORT).show()
-            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container,
+            R.id.app_bar_lovely -> Toast.makeText(
+                context, getString(R.string.lovely),
+                Toast.LENGTH_SHORT
+            ).show()
+            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.replace(
+                R.id.container,
                 SettingsFragment()
             )?.addToBackStack(null)?.commit()
             android.R.id.home -> {
@@ -221,7 +241,20 @@ class MainFragment : Fragment() {
 //                    R.drawable.ic_baseline_star_24))
 //                bottom_app_bar.replaceMenu(R.menu.bottom_bar_menu)
 //            }
-            activity?.let { startActivity(Intent(it, ApiActivity::class.java)) }
+
+            if (isRotated) {
+                rotation = 0f
+            } else rotation = 360F
+
+            fab.animate()
+                .rotation(rotation)
+                .setDuration(600)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        isRotated = !isRotated
+                        activity?.let { startActivity(Intent(it, ApiActivity::class.java)) }
+                    }
+                })
         }
     }
 

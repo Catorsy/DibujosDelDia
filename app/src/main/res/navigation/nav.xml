@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/developerHelpFragment">
+
+    <fragment
+        android:id="@+id/developerHelpFragment"
+        android:name="com.example.dibujosdeldia.ui.main.api.test.DeveloperHelpFragment"
+        android:label="DeveloperHelpFragment"
+        tools:layout="@layout/test_const_file">
+        <action
+            android:id="@+id/action_developerHelpFragment_to_animationActivity2"
+            app:destination="@id/animationActivity2"
+            app:enterAnim="@animator/start_animation"
+            app:exitAnim="@animator/end_animation"
+            />
+    </fragment>
+    <activity
+        android:id="@+id/animationActivity2"
+        android:name="com.example.dibujosdeldia.ui.main.api.test.AnimationActivity2"
+        android:label="AnimationActivity2"
+        tools:layout="@layout/activity_animation_explode"/>
+
+
+</navigation>
