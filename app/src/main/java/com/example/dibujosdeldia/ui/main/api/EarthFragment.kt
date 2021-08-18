@@ -17,12 +17,13 @@ import com.example.dibujosdeldia.ui.main.api.net.earth.EarthData
 import com.example.dibujosdeldia.ui.main.api.net.earth.EarthViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_earth_sheet_layout.*
+import kotlinx.android.synthetic.main.fragment_earth.*
 import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
-//ДЗ в процессе разработки
+
 class EarthFragment : Fragment() {
     private lateinit var binding : FragmentEarthBinding
     val viewModel : EarthViewModel by viewModels()
@@ -87,6 +88,7 @@ class EarthFragment : Fragment() {
             }
             getData()
         }
+
     }
 
     private fun getData(){

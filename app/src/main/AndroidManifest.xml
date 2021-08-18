@@ -21,6 +21,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.api.ApiActivity"/>
+        <activity android:name=".ui.main.api.test.AnimationsActivity"/>
+        <activity android:name=".ui.main.api.test.AnimationActivity2"/>
+        <activity android:name=".ui.main.api.test.AnimationActivity3"/>
+        <activity android:name=".ui.main.api.test.AnimationActivity4"/>
+        <activity android:name=".ui.main.api.test.AnimationsActivity5"/>
+        <activity android:name=".ui.main.api.test.AnimationActivity6"/>
+        <activity android:name=".ui.main.api.test.AnimationActivity7"/>
+        <activity android:name=".ui.main.api.test.AnimationsActivityBonus"/>
     </application>
 
 </manifest>
