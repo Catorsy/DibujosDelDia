@@ -10,7 +10,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ThemeHolder.myTheme = getSharedPreferences(ThemeHolder.THEME_KEY, Context.MODE_PRIVATE).getInt(ThemeHolder.THEME_KEY, 0)
+        ThemeHolder.myTheme = getSharedPreferences(ThemeHolder.THEME_KEY, Context.MODE_PRIVATE)
+            .getInt(ThemeHolder.THEME_KEY, 0)
         if (ThemeHolder.myTheme == ThemeHolder.THEME_DEFAULT){
             setTheme(R.style.Theme_DibujosDelDia)
         }
