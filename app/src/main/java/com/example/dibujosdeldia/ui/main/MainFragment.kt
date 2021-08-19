@@ -32,6 +32,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
+//ДЗ готовится
 
 class MainFragment : Fragment() {
     val viewModel: MainViewModel by viewModels()
