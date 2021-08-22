@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.RecyclerFragmentBinding
 import kotlinx.android.synthetic.main.recycler_fragment.*
@@ -26,14 +27,14 @@ class RecyclerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val data = arrayListOf(
-            DataNotesEarth("Париж", "48°50′ с.ш. 2°20′ в.д."),
-            DataNotesEarth("Вена", "48°13′ с.ш. 16°22′ в.д."),
-            DataNotesEarth(null, null, "Марс", "Сегодняшние сутки 3212"),
-            DataNotesEarth("Гонконг", "22°25′ с.ш. 114°10′ в.д."),
-            DataNotesEarth("Хельсинки", "60°10′ с.ш. 24°56′ в.д."),
-            DataNotesEarth(null, null, "Mars", null)
+            Pair(DataNotesEarth("Париж", "48°50′ с.ш. 2°20′ в.д."), false),
+            Pair(DataNotesEarth("Вена", "48°13′ с.ш. 16°22′ в.д."), false),
+            Pair(DataNotesEarth(null, null, "Марс", "Сегодняшние сутки 3212"), false),
+            Pair(DataNotesEarth("Гонконг", "22°25′ с.ш. 114°10′ в.д."), false),
+            Pair(DataNotesEarth("Хельсинки", "60°10′ с.ш. 24°56′ в.д."), false),
+            Pair(DataNotesEarth(null, null, "Mars", null), false),
         )
-        data.add(0, DataNotesEarth(null))
+        data.add(0, Pair(DataNotesEarth(null), false))
 
         adapter = RecyclerActivityAdapter(
             object : OnListItemClickListener {
@@ -46,5 +47,8 @@ class RecyclerFragment : Fragment() {
         recyclerView.adapter = adapter
 
         recyclerActivityFAB.setOnClickListener { adapter.appendItem() }
+
+        ItemTouchHelper(ItemTouchHelperCallback(adapter))
+            .attachToRecyclerView(recyclerView)
     }
 }

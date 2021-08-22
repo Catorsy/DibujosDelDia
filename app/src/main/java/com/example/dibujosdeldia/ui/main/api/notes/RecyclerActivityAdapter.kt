@@ -10,32 +10,36 @@ import kotlinx.android.synthetic.main.item_mars.view.*
 
 class RecyclerActivityAdapter(
     val onListItemClickListener: OnListItemClickListener,
-    var data: MutableList<DataNotesEarth>
-        ) : RecyclerView.Adapter<BaseViewHolder>()
+    var data: MutableList<Pair<DataNotesEarth, Boolean>>
+        ) : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter
 {
 
     inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: DataNotesEarth) {
+        override fun bind(data: Pair<DataNotesEarth, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.coord_text.text = data.coordDescription
-                itemView.place_text.text = data.placeText
+                itemView.coord_text.text = data.first.coordDescription
+                itemView.place_text.text = data.first.placeText
                 itemView.compass_picture.setOnClickListener {
-                    onListItemClickListener.onItemClick(data) }
+                    onListItemClickListener.onItemClick(data.first) }
             }
         }
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: DataNotesEarth) {
+        override fun bind(data: Pair<DataNotesEarth, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.mars_title.text = data.marsText
-                itemView.mars_note_edit_text.hint = data.noteText
+                itemView.mars_title.text = data.first.marsText
+                itemView.mars_note_edit_text.hint = data.first.noteText
                 itemView.marsImageView.setOnClickListener {
-                    onListItemClickListener.onItemClick(data) }
+                    onListItemClickListener.onItemClick(data.first) }
                 itemView.addItemImageView.setOnClickListener { addItem() }
                 itemView.removeItemImageView.setOnClickListener { removeItem() }
                 itemView.moveItemDown.setOnClickListener { moveDown() }
                 itemView.moveItemUp.setOnClickListener { moveUp() }
+                itemView.mars_note_edit_text.visibility =
+                    if (data.second) View.VISIBLE else View.GONE
+                itemView.mars_title.setOnClickListener { toggleText() }
+                itemView.marsImageView.setOnClickListener { toggleText() }
             }
         }
 
@@ -66,11 +70,18 @@ class RecyclerActivityAdapter(
                     notifyItemMoved(currentPosition, currentPosition + 1)
                 }
             }
+
+        private fun toggleText() {
+            data[layoutPosition] = data[layoutPosition].let {
+                it.first to !it.second
+            }
+            notifyItemChanged(layoutPosition)
+        }
     }
 
     inner class HeaderViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: DataNotesEarth) {
-            itemView.setOnClickListener {onListItemClickListener.onItemClick(data) }
+        override fun bind(data: Pair<DataNotesEarth, Boolean>) {
+            itemView.setOnClickListener {onListItemClickListener.onItemClick(data.first) }
         }
     }
 
@@ -111,9 +122,22 @@ class RecyclerActivityAdapter(
     override fun getItemViewType(position: Int): Int {
         return when {
             position == 0 -> TYPE_HEADER
-            data[position].placeText.isNullOrBlank() -> TYPE_MARS
+            data[position].first.placeText.isNullOrBlank() -> TYPE_MARS
             else -> TYPE_EARTH
         }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        data.removeAt(fromPosition).apply {
+            data.add(if (toPosition > fromPosition) toPosition - 1 else
+                toPosition + 1, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        data.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     fun appendItem() {
@@ -121,7 +145,8 @@ class RecyclerActivityAdapter(
         notifyItemInserted(itemCount - 1)
     }
 
-    private fun generateItem() = DataNotesEarth(null, null, "Марс", "Ваша новая заметка")
+    private fun generateItem() = Pair(DataNotesEarth(
+        null, null, "Марс", "Ваша новая заметка"), false)
 
     companion object {
         private const val TYPE_EARTH = 0
