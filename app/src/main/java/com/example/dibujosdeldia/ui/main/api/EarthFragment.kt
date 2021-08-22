@@ -2,9 +2,7 @@ package com.example.dibujosdeldia.ui.main.api
 
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -15,6 +13,7 @@ import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.FragmentEarthBinding
 import com.example.dibujosdeldia.ui.main.api.net.earth.EarthData
 import com.example.dibujosdeldia.ui.main.api.net.earth.EarthViewModel
+import com.example.dibujosdeldia.ui.main.api.notes.RecyclerFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_earth_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_earth.*
@@ -87,6 +86,13 @@ class EarthFragment : Fragment() {
                 bigZoom = true
             }
             getData()
+        }
+
+        binding.addMyCoordButton.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.
+            //setCustomAnimations(R.animator.start_animation, R.animator.end_animation)?.
+            replace(R.id.api_container, RecyclerFragment())?.
+            addToBackStack("")?.commit()
         }
 
     }

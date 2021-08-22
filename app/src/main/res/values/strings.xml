@@ -39,4 +39,9 @@
     <string name="change_camera_button">Сменить камеру на заднюю</string>
     <string name="change_camera_to_front">Сменить камеру на переднюю</string>
     <string name="go_to_curiosity_button">Перейти на сайт Кюриосити!</string>
+    <string name="my_coordinats">Мои координаты</string>
+    <string name="place">Место</string>
+    <string name="coordinats">Координаты</string>
+    <string name="write_your_note">Введите Вашу заметку</string>
+    <string name="place2">Место</string>
 </resources>

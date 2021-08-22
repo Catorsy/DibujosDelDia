@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -47,6 +48,14 @@
                 android:inputType="number"
                 android:textColor="?text_input_text_input"
                 android:textColorHint="?text_input_text_input" />
+
+            <ImageButton
+                android:id="@+id/add_my_coord_button"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="140dp"
+                android:backgroundTint="?chip_back_dark"
+                app:srcCompat="@drawable/ic_baseline_add_location_alt_24" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,4 +152,5 @@
 
     </LinearLayout>
     <include layout="@layout/bottom_earth_sheet_layout" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
