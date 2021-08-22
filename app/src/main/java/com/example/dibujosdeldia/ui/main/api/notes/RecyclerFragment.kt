@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.recycler_fragment.*
 class RecyclerFragment : Fragment() {
 
     private lateinit var binding: RecyclerFragmentBinding
-
+    private lateinit var adapter: RecyclerActivityAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,9 @@ class RecyclerFragment : Fragment() {
             DataNotesEarth("Хельсинки", "60°10′ с.ш. 24°56′ в.д."),
             DataNotesEarth(null, null, "Mars", null)
         )
+        data.add(0, DataNotesEarth(null))
 
-        recyclerView.adapter = RecyclerActivityAdapter(
+        adapter = RecyclerActivityAdapter(
             object : OnListItemClickListener {
                 override fun onItemClick(data: DataNotesEarth) {
                     Toast.makeText(context, data.placeText, Toast.LENGTH_SHORT).show()
@@ -42,5 +43,8 @@ class RecyclerFragment : Fragment() {
             },
             data
         )
+        recyclerView.adapter = adapter
+
+        recyclerActivityFAB.setOnClickListener { adapter.appendItem() }
     }
 }

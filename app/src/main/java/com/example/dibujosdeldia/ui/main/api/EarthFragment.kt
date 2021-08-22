@@ -90,7 +90,7 @@ class EarthFragment : Fragment() {
 
         binding.addMyCoordButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.
-            //setCustomAnimations(R.animator.start_animation, R.animator.end_animation)?.
+            setCustomAnimations(R.animator.start_animation, R.animator.end_animation)?.
             replace(R.id.api_container, RecyclerFragment())?.
             addToBackStack("")?.commit()
         }
