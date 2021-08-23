@@ -55,11 +55,10 @@ class RecyclerFragment : Fragment() {
 
         recyclerActivityFAB.setOnClickListener { adapter.appendItem() }
 
-            //к рукоятке
+        //к рукоятке
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
-
-        ItemTouchHelper(ItemTouchHelperCallback(adapter))
-            .attachToRecyclerView(recyclerView)
+//        ItemTouchHelper(ItemTouchHelperCallback(adapter))
+//            .attachToRecyclerView(recyclerView)
     }
 }
