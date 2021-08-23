@@ -1,8 +1,10 @@
 package com.example.dibujosdeldia.ui.main.api.notes
 
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dibujosdeldia.R
 import kotlinx.android.synthetic.main.item_coord.view.*
@@ -10,7 +12,8 @@ import kotlinx.android.synthetic.main.item_mars.view.*
 
 class RecyclerActivityAdapter(
     val onListItemClickListener: OnListItemClickListener,
-    var data: MutableList<Pair<DataNotesEarth, Boolean>>
+    var data: MutableList<Pair<DataNotesEarth, Boolean>>,
+    private val dragListener: OnStartDragListener
         ) : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter
 {
 
@@ -40,6 +43,13 @@ class RecyclerActivityAdapter(
                     if (data.second) View.VISIBLE else View.GONE
                 itemView.mars_title.setOnClickListener { toggleText() }
                 itemView.marsImageView.setOnClickListener { toggleText() }
+                itemView.dragHandleImageView.setOnTouchListener { _, event ->
+                    if (MotionEventCompat.getActionMasked(event) ==
+                        MotionEvent.ACTION_DOWN) {
+                        dragListener.onStartDrag(this)
+                    }
+                    false
+                }
             }
         }
 
@@ -129,10 +139,13 @@ class RecyclerActivityAdapter(
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         data.removeAt(fromPosition).apply {
-            data.add(if (toPosition > fromPosition) toPosition - 1 else
-                toPosition + 1, this)
-        }
-        notifyItemMoved(fromPosition, toPosition)
+            if (toPosition != 0) {
+                data.add(toPosition, this)
+            } else {
+                data.add(fromPosition, this)
+            }
+            notifyItemMoved(fromPosition, toPosition)
+            }
     }
 
     override fun onItemDismiss(position: Int) {
@@ -147,6 +160,10 @@ class RecyclerActivityAdapter(
 
     private fun generateItem() = Pair(DataNotesEarth(
         null, null, "Марс", "Ваша новая заметка"), false)
+
+    interface OnStartDragListener{
+        fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
+    }
 
     companion object {
         private const val TYPE_EARTH = 0

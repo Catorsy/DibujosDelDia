@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.RecyclerFragmentBinding
 import kotlinx.android.synthetic.main.recycler_fragment.*
@@ -15,6 +16,7 @@ class RecyclerFragment : Fragment() {
 
     private lateinit var binding: RecyclerFragmentBinding
     private lateinit var adapter: RecyclerActivityAdapter
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +44,20 @@ class RecyclerFragment : Fragment() {
                     Toast.makeText(context, data.placeText, Toast.LENGTH_SHORT).show()
                 }
             },
-            data
+            data,
+            object : RecyclerActivityAdapter.OnStartDragListener {
+                override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                    itemTouchHelper.startDrag(viewHolder) //startDrag слушатель тяги за рукоятку
+                }
+            }
         )
         recyclerView.adapter = adapter
 
         recyclerActivityFAB.setOnClickListener { adapter.appendItem() }
+
+            //к рукоятке
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         ItemTouchHelper(ItemTouchHelperCallback(adapter))
             .attachToRecyclerView(recyclerView)
