@@ -33,7 +33,6 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
-//ДЗ 7 в стадии разработки
 class MainFragment : Fragment() {
     val viewModel: MainViewModel by viewModels()
     private lateinit var binding: MainStartFragmentBinding
