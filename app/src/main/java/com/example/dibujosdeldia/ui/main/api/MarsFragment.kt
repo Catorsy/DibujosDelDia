@@ -49,12 +49,12 @@ class MarsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val observerMaxSol = Observer<MarsMaxApiData> { renderDataSol(it) }
         val observer = Observer<MarsData> { try {renderData(it)} catch (e: NoSuchElementException) {
             Toast.makeText(context, "На сол ${startSol} изображения с выбранной камеры нет.", Toast.LENGTH_LONG).show()
         } }
-        val observerMaxSol = Observer<MarsMaxApiData> { renderDataSol(it) }
-        viewModel.getData(startSol, camera).observe(viewLifecycleOwner, observer)
         viewModelForMaxSol.getData().observe(viewLifecycleOwner, observerMaxSol)
+        viewModel.getData(startSol, camera).observe(viewLifecycleOwner, observer)
         getData()
 
         binding.imageView.setOnClickListener {
@@ -171,6 +171,8 @@ class MarsFragment : Fragment() {
             is MarsMaxApiData.Success -> {
                 val serverResponseData = data.serverResponseData
                 maxSol = serverResponseData.photo_manifest.max_sol!!
+                startSol = maxSol
+                getData()
                 enterMySol.hint = "с 26 по ${maxSol} сол"
             }
             is MarsMaxApiData.Loading -> {
