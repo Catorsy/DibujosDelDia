@@ -1,7 +1,9 @@
 package com.example.dibujosdeldia.ui.main.api.notes
 
+import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.Math.abs
 
 class ItemTouchHelperCallback(private val adapter: RecyclerActivityAdapter) : ItemTouchHelper.Callback() {
     // ItemTouchHelper.Callback() позволяет подписаться на события, связанные с перетаскиванием и смахиванием элементов списка.
@@ -57,6 +59,29 @@ class ItemTouchHelperCallback(private val adapter: RecyclerActivityAdapter) : It
         super.clearView(recyclerView, viewHolder)
         val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
         itemViewHolder.onItemClear()
+    }
+
+    //меняем прозрачность элемента при смахивании
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            val width = viewHolder.itemView.width.toFloat()
+            val alpha = 1.0f - abs(dX) / width
+            viewHolder.itemView.alpha = alpha
+            viewHolder.itemView.translationX = dX
+        } else {
+            super.onChildDraw(
+                c, recyclerView, viewHolder, dX, dY,
+                actionState, isCurrentlyActive
+            )
+        }
     }
 
 }

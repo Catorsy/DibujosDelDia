@@ -1,5 +1,6 @@
 package com.example.dibujosdeldia.ui.main.api.notes
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -26,6 +27,11 @@ class RecyclerActivityAdapter(
                     onListItemClickListener.onItemClick(data.first) }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.parseColor("#BFB2B9CA"))
+        }
+
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
@@ -52,6 +58,15 @@ class RecyclerActivityAdapter(
                 }
             }
         }
+
+        //если потребуются какие эффекты переноса-выделения. Сделать в лайауте фон белый/серый.
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.parseColor("#BFB2B9CA"))
+        }
+
+//        override fun onItemClear() {
+//            itemView.setBackgroundColor(Color.WHITE)
+//        }
 
         private fun addItem() {
             data.add(layoutPosition, generateItem())
