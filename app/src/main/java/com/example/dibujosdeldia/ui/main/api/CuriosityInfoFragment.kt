@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.example.dibujosdeldia.R
 import com.example.dibujosdeldia.databinding.FragmentCuriosityInfoBinding
 
+//ДЗ делается
 class CuriosityInfoFragment : Fragment() {
     private lateinit var binding: FragmentCuriosityInfoBinding
     private val myLink = "https://mars.nasa.gov/msl/mission/where-is-the-rover/"
@@ -35,7 +36,11 @@ class CuriosityInfoFragment : Fragment() {
                 data = Uri.parse(myLink)
             })
         }
+        textDecor()
+        binding.texMarsView.text = spannableMarsDescription
+    }
 
+    private fun textDecor() {
         //FHAZ
         spannableMarsDescription.setSpan(BulletSpan(8, ContextCompat.getColor(
             requireContext(), R.color.purple_500)), 539, 540, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -68,7 +73,5 @@ class CuriosityInfoFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableMarsDescription.setSpan(StyleSpan(Typeface.ITALIC), 1082, 1147,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        binding.texMarsView.text = spannableMarsDescription
     }
 }
