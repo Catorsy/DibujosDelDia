@@ -164,6 +164,12 @@ class MainFragment : Fragment() {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
+
+                //это если захотим передать твет сервера текствью
+//                serverResponseData.explanation?.let {
+//                    text_view.text = it
+//                }
+
                 myLink = url!!
                 //myFoto = serverResponseData.date.toString()
                 if (url.isNullOrEmpty()) {

@@ -29,6 +29,10 @@
         <activity android:name=".ui.main.api.test.AnimationActivity6"/>
         <activity android:name=".ui.main.api.test.AnimationActivity7"/>
         <activity android:name=".ui.main.api.test.AnimationsActivityBonus"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

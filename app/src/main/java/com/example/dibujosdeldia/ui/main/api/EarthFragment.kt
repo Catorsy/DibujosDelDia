@@ -1,10 +1,19 @@
 package com.example.dibujosdeldia.ui.main.api
 
+import android.graphics.Color
+import android.graphics.Typeface.BOLD
+import android.graphics.Typeface.ITALIC
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BulletSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -55,7 +64,13 @@ class EarthFragment : Fragment() {
         viewModel.getData(lon, lat, dim, currentDateofWashington.toString()).observe(viewLifecycleOwner, observer)
         getData()
 
+        //SPAN_EXCLUSIVE_EXCLUSIVE включать или нет границы. Это не включает
         setBottomSheetBehavior(bottom_earth_sheet_container)
+         spannableEarthDescription.setSpan(StyleSpan(ITALIC), 303, 320,
+         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableEarthDescription.setSpan(StyleSpan(BOLD), 0, 250,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        bottom_sheet_description.text = spannableEarthDescription
 
         binding.lotLanOk.setOnClickListener {
             try {
