@@ -27,6 +27,7 @@ class DeveloperHelpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.button.setOnClickListener {
             if(needHide.visibility == View.GONE){
                 needHide.visibility = View.VISIBLE
@@ -82,5 +83,11 @@ class DeveloperHelpFragment : Fragment() {
 
             }
         }
-    }
+
+        binding.toTextButton.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.test_container, TextFragment())
+                ?.addToBackStack("")
+                ?.commit()
+            }
+        }
 }
