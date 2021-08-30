@@ -116,7 +116,12 @@ class MainFragment : Fragment() {
 
         binding.imageView.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(myLink)
+                try{
+                    data = Uri.parse(myLink)
+                } catch (e: UninitializedPropertyAccessException) {
+                    e.stackTrace
+                    Toast.makeText(context, getString(R.string.wait_not_load_yet), Toast.LENGTH_LONG).show()
+                }
             })
         }
 

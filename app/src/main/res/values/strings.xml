@@ -44,4 +44,5 @@
     <string name="coordinats">Координаты</string>
     <string name="write_your_note">Введите Вашу заметку</string>
     <string name="place2">Место</string>
+    <string name="wait_not_load_yet">Подождите, ещё не загрузилось...</string>
 </resources>
