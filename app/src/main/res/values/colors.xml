@@ -7,4 +7,33 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorAccent">#2962FF</color>
+    <color name="yellow">#E8DA58</color>
+
+    <color name="rose_and_gray">#DFDFDF</color>
+    <color name="light_white">#80FFFFFF</color>
+    <color name="color_gray">#99000000</color>
+    <color name="dark_base">#031C37</color>
+    <color name="light_base">#8DADFF</color>
+    <color name="grey_and_base">#323E5A</color>
+    <color name="middle_base">#657BB3</color>
+    <color name="background_sheet">#B3031C37</color>
+    <color name="background_nested_scroll">#031427</color>
+    <color name="background_constrait_layoyt">#031427</color>
+    <color name="background_cheep_bright">#CC4F608C</color>
+    <color name="background_cheep_middle">#E64F608C</color>
+    <color name="light_grey">#E6B2B9CA</color>
+    <color name="light_light_grey">#E6DCE0E8</color>
+    <color name="light_grey_half_trans">#BFB2B9CA</color>
+    <color name="light_grey_trans">#99B2B9CA</color>
+    <color name="background_chip_bright">#3399A0B1</color>
+    <color name="background_chip_middle">#4D99A0B1</color>
+    <color name="background_chip_dark">#6699A0B1</color>
+    <color name="background_cheep_dark">#4F608C</color>
+    <color name="dark_grey">#1F2025</color>
+
+    <color name="pink">#c49fef</color>
+    <color name="blue">#7ca5ee</color>
+    <color name="light_blue">#9fd2f9</color>
+    <color name="light_rose">#f8e8fb</color>
 </resources>

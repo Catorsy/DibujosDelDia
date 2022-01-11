@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/navigation_consejo"
+            android:icon="@drawable/ic_baseline_remove_red_eye_24"
+            android:title="@string/help_to_observe_sky" />
+        <item
+            android:id="@+id/what_can_i_do"
+            android:icon="@drawable/ic_baseline_check_box_outline_blank_24"
+            android:title="@string/what_can_i_do_if_no_picture" />
+        <item
+            android:id="@+id/navigation_about"
+            android:icon="@drawable/ic_baseline_self_improvement_24"
+            android:title="@string/about_app" />
+        <item
+            android:id="@+id/help_developer"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Баловство разработчика" />
+    </group>
+</menu>

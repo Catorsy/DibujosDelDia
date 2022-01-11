@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DibujosDelDia" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.DibujosDelDia" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/grey_and_base</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,40 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!-- Customize your theme here. -->
+        <!--    Chips background -->
+        <item name="chip_back_bright">@color/background_chip_bright</item>
+        <item name="chip_back_middle">@color/background_chip_middle</item>
+        <item name="chip_back_dark">@color/background_chip_dark</item>
+        <!--    Backgroungs-->
+        <item name="nest_back">@color/dark_grey</item>
+        <item name="sheet_back">@color/black</item>
+        <item name="constrait_back">@color/dark_grey</item>
+        <item name="tab_layout_back">@color/black</item>
+        <!--    Texts-->
+        <item name="sheet_text">@color/light_grey</item>
+        <item name="chip_text">@color/light_grey</item>
+        <!--        FAB-->
+        <item name="fab_back">@color/color_gray</item>
+        <item name="fab_color_emblem">@color/light_light_grey</item>
+        <!--    BottomAppBar-->
+        <item name="bottom_app_bar_back">@color/color_gray</item>
+        <!--    TextInputWiki-->
+        <item name="text_input_text_hint">@color/light_grey</item>
+        <item name="text_input_counter">@color/light_grey</item>
+        <item name="text_input_text_input">@color/light_grey</item>
+        <item name="text_input_end_icon">@color/light_grey</item>
+        <item name="text_input_start_icon">@color/light_grey</item>
+        <item name="text_input_helper_text">@color/light_grey</item>
+        <item name="text_input_text_hint_up">@color/light_grey</item>
+        <!--    Icons-->
+        <item name="navigation_icon">@drawable/ic_baseline_emoji_nature_white_24</item>
+        <item name="action_icon_settings">@drawable/ic_baseline_settings_white_24</item>
+        <item name="action_icon_favorite">@drawable/ic_baseline_favorite_border_white24</item>
+        <!--       Fonts-->
+        <item name="font_settings">@font/american_retro</item>
+        <item name="font_settings_button">@font/zero5</item>
+        <!--        Dimens-->
+        <item name="dimen_choose_theme">@dimen/dimen_choose_theme_big</item>
     </style>
 </resources>

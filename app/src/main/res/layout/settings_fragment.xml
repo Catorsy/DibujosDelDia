@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.DibujosDelDia"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?constrait_back"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/choose_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?sheet_text"
+        android:text="@string/choose_app_theme"
+        android:textSize="?dimen_choose_theme"
+        android:fontFamily="?font_settings"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_choose_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_theme"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:id="@+id/choose_theme_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="?chip_back_middle"
+            android:text="@string/standart"
+            android:textAppearance="@style/TextAppearance.App.Button"
+            android:textFontWeight="1" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:id="@+id/choose_theme_black_and_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="?chip_back_middle"
+            android:text="@string/black_and_white"
+            android:textAppearance="@style/TextAppearance.App.Button"
+            android:textFontWeight="1" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:id="@+id/choose_theme_bright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="?chip_back_middle"
+            android:text="@string/bright"
+            android:textAppearance="@style/TextAppearance.App.Button"
+            android:textFontWeight="1" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
